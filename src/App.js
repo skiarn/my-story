@@ -25,14 +25,14 @@ function App() {
       <article>
           <a
             className="App-link"
-            href="/share-my-story"
+            href="/my-story/share-my-story" 
             target="_blank"
             rel="noopener noreferrer"
           >
             Share My Story
           </a>
         </article>
-        <Router>
+        <Router basename="/my-story">
           <Routes>
             <Route path="/" element={<StartedView onContinue={() => {
               window.location.href = '/started';

@@ -5,12 +5,16 @@ import './Assistant.css';
 // //import OpenAI from 'openai';
 // const endpoint = "http://localhost:3000"//"https://models.inference.ai.azure.com";
 // const modelName = "gpt-4o";
+const endpointBackend = process.env.BACKEND_URL;
 
 const AssistantView = (title, description) => {
     const [input, setInput] = useState('');
     const [response, setResponse] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    if (!endpointBackend) {
+        return <></>
+    }
 
     const handleInputChange = (e) => {
         setInput(e.target.value);
@@ -57,7 +61,7 @@ const AssistantView = (title, description) => {
 
         try {
             const xhr = new XMLHttpRequest();
-            const url = 'http://localhost:3000/my-story/api/assistant';
+            const url = endpointBackend + '/my-story/api/assistant';
             const data = JSON.stringify({
                 input: input,
                 title: title,

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Chapter from './Chapter';
 import './ChapterList.css'
-import pako from 'pako';
 
 function encodedChapters(chapters) {
   const data = JSON.stringify(chapters); //pako.deflate(JSON.stringify(chapters), { to: 'string' });

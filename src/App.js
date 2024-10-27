@@ -25,7 +25,7 @@ function App() {
       <article>
           <a
             className="App-link"
-            href="/my-story/share-my-story" 
+            href="/my-story/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -33,14 +33,11 @@ function App() {
           </a>
         </article>
         <Router basename="/my-story">
-          <Routes>
-            <Route path="/" element={<StartedView onContinue={() => {
-              window.location.href = '/started';
-            }} />} />
+        <Routes>
+            <Route path="/" element={<StartedView onContinue={() => { window.location.href = '/my-story/started'; }} />} />
             <Route path="/started" element={
               <div className="started-container">
                 <div className="chapter-list-view">
-
                   <ChapterList
                     chapters={chapters}
                     title={title}
@@ -54,9 +51,8 @@ function App() {
                   <AssistantView title={title} description={description} />
                 </div>
               </div>
-
-            }></Route>
-            <Route path="/assistant" element={<AssistantView title={title} description={description}></AssistantView>}></Route>
+            } />
+            <Route path="/assistant" element={<AssistantView title={title} description={description} />} />
             <Route path="/chapter" element={
               <ChapterList
                 chapters={chapters}
@@ -65,7 +61,8 @@ function App() {
                 setChapters={setChapters}
                 setTitle={setTitle}
                 setDescription={setDescription}
-              />}></Route>
+              />
+            } />
           </Routes>
         </Router>
       </header>

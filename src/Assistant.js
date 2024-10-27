@@ -5,7 +5,7 @@ import './Assistant.css';
 // //import OpenAI from 'openai';
 // const endpoint = "http://localhost:3000"//"https://models.inference.ai.azure.com";
 // const modelName = "gpt-4o";
-const endpointBackend = process.env.BACKEND_URL;
+const endpointBackend = process.env.REACT_APP_BACKEND_URL;
 
 const AssistantView = (title, description) => {
     const [input, setInput] = useState('');
@@ -76,9 +76,11 @@ const AssistantView = (title, description) => {
                     if (xhr.status === 200) {
                         console.log(xhr.responseText)
                         const jsonResponse = JSON.parse(xhr.responseText)
+                        setIsLoading(false)
                         setResponse(jsonResponse.result)
                     } else {
                         console.error('Error:', xhr.statusText); // Handle error
+                        setIsLoading(false)
                     }
                 }
             };
@@ -86,13 +88,10 @@ const AssistantView = (title, description) => {
             xhr.send(data);
         } catch(err) {
             console.error("The sample encountered an error:", err);
-        } finally {
             setIsLoading(false);
-        }
-    
+        } 
     }
 
-    console.log(title, description)
     return (
         <div className="assistant-container">
             <form onSubmit={handleSubmit} className="form-container">

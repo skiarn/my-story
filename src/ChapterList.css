@@ -1,0 +1,34 @@
+.chapter-container {
+    display: flex;
+    width: 100%;
+  }
+
+.add-chapter, .chapter-list {
+flex: 1;
+padding: 10px;
+margin: 10px;
+margin-bottom: 20px;
+
+}
+
+.add-chapter input,
+.add-chapter textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-chapter button {
+    padding: 10px 20px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-chapter button:hover {
+    background-color: #005fa3;
+}

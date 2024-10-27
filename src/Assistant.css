@@ -1,0 +1,29 @@
+/* Assistant.css */
+.assistant-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Full viewport height */
+}
+
+.form-container {
+    display: flex;
+    flex: 2;
+    align-items: center;
+  }
+
+  .story-input {
+    flex: 1;
+    margin-right: 10px; /* Optional: Add some space between the input and the button */
+  }
+
+  .submit-button, .disabled-button {
+    /* Add your button styles here */
+  }
+  .response-text {
+    flex: 8;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrolling */
+    padding: 10px; /* Optional: Add padding for better readability */
+    border: 1px solid #ccc; /* Optional: Add a border for visual separation */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  }

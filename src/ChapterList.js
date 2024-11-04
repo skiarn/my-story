@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chapter from './Chapter';
 import './ChapterList.css'
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function encodedChapters(chapters) {
   const data = JSON.stringify(chapters); //pako.deflate(JSON.stringify(chapters), { to: 'string' });
@@ -22,6 +23,9 @@ function decodeChapters(encodedData) {
 
 const ChapterList = ({ chapters, setChapters, title, setTitle, description, setDescription }) => {
   const [editIndex, setEditIndex] = useState(null);
+  const navigate = useNavigate(); 
+  const location = useLocation();
+
 
   const addChapter = () => {
     const newChapters = [...chapters, { title, description }];
@@ -31,15 +35,21 @@ const ChapterList = ({ chapters, setChapters, title, setTitle, description, setD
 
     // Encode chapters as JSON string in base64 format and update URL parameters
     const eChapters = encodedChapters(newChapters);
-    const params = new URLSearchParams();
+
+    const params = new URLSearchParams(location.search);
     params.set('chapters', eChapters);
-    window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+    params.delete('editIndex');
+    navigate(`${location.pathname}?${params.toString()}`, { replace: true});
+    //window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
   };
 
   const editChapter = (index, title, description) => {
     setEditIndex(index);
     setTitle(title);
     setDescription(description);
+    const params = new URLSearchParams(location.search);
+    params.set('editIndex', index);
+    navigate(`${location.pathname}?${params.toString()}`, { replace: true});
   };
 
   const updateChapter = () => {
@@ -50,15 +60,43 @@ const ChapterList = ({ chapters, setChapters, title, setTitle, description, setD
 
     // Encode chapters as JSON string in base64 format and update URL parameters
     const eChapters = encodedChapters(updatedChapters);
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(location.search);
     params.set('chapters', eChapters);
-    window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
-
+    params.delete('editIndex');
+    //window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+    navigate(`${location.pathname}?${params.toString()}`, { replace: true});
     // Clear input fields and reset edit index
     setTitle('');
     setDescription('');
     setEditIndex(null);
   };
+
+
+
+  useEffect(() => { 
+    const params = new URLSearchParams(location.search); 
+    const value = params.get('editIndex'); 
+    const findChapterByIndex = (index) => {
+      if (index >= 0 && index < chapters.length) {
+          const chapter = chapters[index];
+          console.log('Chapter found:', chapter);
+          return chapter;
+      } else {
+          console.log('Invalid index');
+          return null;
+      }
+  };
+
+    if (value) { 
+      const foundChapter = findChapterByIndex(value);
+      if(foundChapter && foundChapter.title !== title) {
+        setEditIndex(value); 
+        setTitle(foundChapter.title);
+        setDescription(foundChapter.description);
+      }
+    } 
+  }, [location.search, chapters, setTitle, setDescription, title]);
+
 
   return (
     <div className="chapter-container">

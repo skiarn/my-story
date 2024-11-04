@@ -13,6 +13,7 @@ To preserve the rich tapestry of human experiences by encouraging older people t
 
 **Words of Wisdom:** Provide a platform for older generations to share their wisdom and advice on various topics, from life lessons to practical tips.
 
+
 ### `npm start`
 
 ### `npm test`
@@ -21,4 +22,4 @@ To preserve the rich tapestry of human experiences by encouraging older people t
 
 ### Deployment
 
-Deploys a a static web app on github, 
+Deploys a a static web app on github: https://skiarn.github.io/my-story/

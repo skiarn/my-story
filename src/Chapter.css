@@ -1,9 +1,11 @@
 .chapter {
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
     background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .chapter-header {
@@ -11,21 +13,52 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    background-color: #e6e6e6;
+    padding: 10px;
+    border-radius: 10px;
 }
 
-.chapter-description {
-    margin-top: 10px;
+.chapter-header h3 {
+    margin: 0;
+    color: #333;
 }
 
-.edit-chapter button {
-    padding: 10px 20px;
-    background-color: #007acc;
+.chapter-header .buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.chapter-header button {
+    background-color: #ccc;
     color: white;
     border: none;
     border-radius: 5px;
+    padding: 5px 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 2px;
 }
 
-.edit-chapter button:hover {
+.chapter-header button:hover {
+    background-color: #999;
+}
+
+.chapter-description {
+    margin-top: 15px;
+    color: #555;
+    line-height: 1.6;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.chapter:hover {
+    transform: translateY(-2px);
+}
+
+.edit-chapter-button {
+    background-color: #007acc;
+    padding: 5px 10px;
+}
+
+.edit-chapter-button:hover {
     background-color: #005fa3;
 }

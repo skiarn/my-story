@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Chapter from './Chapter';
 import './ChapterList.css'
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -21,8 +21,7 @@ function decodeChapters(encodedData) {
   return chapters;
 }
 
-const ChapterList = ({ chapters, setChapters, title, setTitle, description, setDescription }) => {
-  const [editIndex, setEditIndex] = useState(null);
+const ChapterList = ({ chapters, setChapters, title, setTitle, description, setDescription, editIndex, setEditIndex }) => {
   const navigate = useNavigate(); 
   const location = useLocation();
 
@@ -71,33 +70,6 @@ const ChapterList = ({ chapters, setChapters, title, setTitle, description, setD
     setEditIndex(null);
   };
 
-
-
-  useEffect(() => { 
-    const params = new URLSearchParams(location.search); 
-    const value = params.get('editIndex'); 
-    const findChapterByIndex = (index) => {
-      if (index >= 0 && index < chapters.length) {
-          const chapter = chapters[index];
-          console.log('Chapter found:', chapter);
-          return chapter;
-      } else {
-          console.log('Invalid index');
-          return null;
-      }
-  };
-
-    if (value) { 
-      const foundChapter = findChapterByIndex(value);
-      if(foundChapter && foundChapter.title !== title) {
-        setEditIndex(value); 
-        setTitle(foundChapter.title);
-        setDescription(foundChapter.description);
-      }
-    } 
-  }, [location.search, chapters, setTitle, setDescription, title]);
-
-
   return (
     <div className="chapter-container">
       <div className="add-chapter">
@@ -121,7 +93,6 @@ const ChapterList = ({ chapters, setChapters, title, setTitle, description, setD
         )}
       </div>
       <div className="chapter-list">
-
       {chapters.map((chapter, index) => (
         <Chapter
           key={index}

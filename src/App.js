@@ -6,9 +6,14 @@ import AssistantView from "./Assistant";
 import RequestView from "./RequestView";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-const basename = '/my-story'
+const basename = "/my-story";
 function App() {
+  const params = new URLSearchParams(window.location.search);
+
   const [chapters, setChapters] = useState([]);
+  const [editIndex, setEditIndex] = useState(
+    params.get("editIndex") !== null ? Number(params.get("editIndex")) : null
+  );
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -21,10 +26,30 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("on change index", editIndex);
+    const findChapterByIndex = (index) => {
+      if (index >= 0 && index < chapters.length) {
+        const chapter = chapters[index];
+        console.log("Chapter found:", chapter);
+        return chapter;
+      } else {
+        console.log("Invalid index");
+        return null;
+      }
+    };
+
+    const foundChapter = findChapterByIndex(editIndex);
+    if (foundChapter) {
+      console.log("Set edit chapter");
+      setTitle(foundChapter.title);
+      setDescription(foundChapter.description);
+    }
+  }, [editIndex, chapters, setTitle, setDescription]);
+
   return (
     <div className="App">
       <header className="App-header">
-        
         <Router basename={basename}>
           <Routes>
             <Route path="/" element={<StartedView />} />
@@ -40,6 +65,8 @@ function App() {
                       setChapters={setChapters}
                       setTitle={setTitle}
                       setDescription={setDescription}
+                      editIndex={editIndex}
+                      setEditIndex={setEditIndex}
                     />
                   </div>
                   <div className="assistant-view">
@@ -48,11 +75,7 @@ function App() {
                 </div>
               }
             />
-            <Route 
-              path="/request"
-              element={
-                <RequestView/>
-              }/>
+            <Route path="/request" element={<RequestView />} />
             <Route
               path="/assistant"
               element={

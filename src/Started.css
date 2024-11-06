@@ -5,6 +5,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 8px;
   }
 
   .request-button {
@@ -14,4 +15,5 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 8px;
   }

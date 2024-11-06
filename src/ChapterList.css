@@ -1,19 +1,18 @@
 .chapter-container {
     display: flex;
+    flex-direction: column; /* Stack elements vertically */
     width: 100%;
-  }
+}
 
 .add-chapter, .chapter-list {
-flex: 1;
-padding: 10px;
-margin: 10px;
-margin-bottom: 20px;
-
+    padding: 10px;
+    margin: 10px;
+    margin-bottom: 20px;
 }
 
 .add-chapter input,
 .add-chapter textarea {
-    width: 70%;
+    width: 100%; /* Make sure inputs take full width */
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #ccc;
@@ -31,4 +30,37 @@ margin-bottom: 20px;
 
 .add-chapter button:hover {
     background-color: #005fa3;
+}
+
+.chapter-list {
+    display: flex;
+    flex-direction: column; /* Stack chapters vertically */
+}
+
+.chapter {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.chapter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.chapter-header h3 {
+    margin: 0;
+}
+
+.chapter-header .buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.chapter-description {
+    margin-top: 10px;
 }

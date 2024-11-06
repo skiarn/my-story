@@ -93,3 +93,12 @@
   75% { background-color: blue; }
   100% { background-color: purple; }
 }
+
+.share-button {
+  padding: 10px 20px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -1,12 +1,59 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { decodeChapters, ChapterList } from "./ChapterList";
+import { decodeChapters, encodedChapters, ChapterList } from "./ChapterList";
 import StartedView from "./Started";
 import AssistantView from "./Assistant";
 import RequestView from "./RequestView";
+import ReadView from "./ReadView";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const basename = "/my-story";
+
+
+const ShareButton = ({chapters}) => {
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const handleCopy = async () => {
+      try {
+          if (!chapters) {
+              setError('Please enter a title.');
+              return;
+          }
+          setError('')
+
+          const eChapters = encodedChapters(chapters);
+          const params = new URLSearchParams();
+          params.set('chapters', eChapters);
+          const requestURL = `${window.location.origin}/my-story/read?${params.toString()}`;
+          //navigate({ pathname: '/started', search: `?${params.toString()}` });
+          // Copy text to clipboard
+          await navigator.clipboard.writeText(requestURL);
+
+          // Show the green success message
+          setMessage('Link copied to clipboard!');
+          
+          // Hide the message after 1 second
+          setTimeout(() => {
+              setMessage('');
+          }, 1000);
+          setTimeout(() => {
+            setError('');
+        }, 1000);
+      } catch (error) {
+          console.error('Failed to copy text:', error);
+      }
+  };
+
+  return (
+      <div>
+          <button className="share-button" onClick={() => handleCopy(chapters)}>Share</button>
+          {message && <p style={{ color: 'green' }}>{message}</p>}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
+  );
+};
+
+
 function App() {
   const params = new URLSearchParams(window.location.search);
 
@@ -71,6 +118,24 @@ function App() {
                   </div>
                   <div className="assistant-view">
                     <AssistantView title={title} description={description} />
+                  </div>
+                  <ShareButton chapters={chapters}></ShareButton>
+                </div>
+              }
+            />
+            <Route path="/request" element={<RequestView/>} />
+            <Route
+              path="/assistant"
+              element={
+                <AssistantView title={title} description={description} />
+              }
+            />
+            <Route
+              path="/read"
+              element={
+                <div className="started-container">
+                  <div className="chapter-list-view">
+                    <ReadView chapters={chapters}></ReadView>
                   </div>
                 </div>
               }

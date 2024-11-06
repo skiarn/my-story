@@ -1,0 +1,25 @@
+.chapter-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    width: 100%;
+}
+
+.chapter-list {
+    display: flex;
+    flex-direction: column; /* Stack chapters vertically */
+}
+
+.chapter {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.chapter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}

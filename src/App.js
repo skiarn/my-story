@@ -46,7 +46,7 @@ const ShareButton = ({chapters}) => {
 
   return (
       <div>
-          <button className="share-button" onClick={() => handleCopy(chapters)}>Share</button>
+          {!message && !error &&<button className="share-button" onClick={() => handleCopy(chapters)}>Share</button>}
           {message && <p style={{ color: 'green' }}>{message}</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
@@ -115,11 +115,13 @@ function App() {
                       editIndex={editIndex}
                       setEditIndex={setEditIndex}
                     />
+                    <div className="share-button-container"> <ShareButton chapters={chapters}></ShareButton> </div>
                   </div>
+                  
                   <div className="assistant-view">
                     <AssistantView title={title} description={description} />
                   </div>
-                  <ShareButton chapters={chapters}></ShareButton>
+                  
                 </div>
               }
             />

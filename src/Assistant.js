@@ -94,6 +94,7 @@ const AssistantView = (title, description) => {
 
     return (
         <div className="assistant-container">
+            <p className="response-text">{response}</p>
             <form onSubmit={handleSubmit} className="form-container">
                 <input
                     type="text"
@@ -104,7 +105,6 @@ const AssistantView = (title, description) => {
                 />
                 <button disabled={isLoading} type="submit" className={`${isLoading ? 'disabled-button' : 'submit-button'}`}>Ask</button>
             </form>
-            <p className="response-text">{response}</p>
         </div>
     )
 

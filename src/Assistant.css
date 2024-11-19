@@ -16,8 +16,13 @@
     margin-right: 10px; /* Optional: Add some space between the input and the button */
   }
 
-  .submit-button, .disabled-button {
-    /* Add your button styles here */
+  .disabled-button {
+    padding: 10px 20px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
   }
   .response-text {
     flex: 8;

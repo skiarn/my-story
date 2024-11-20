@@ -6,8 +6,9 @@ import './Assistant.css';
 // const endpoint = "http://localhost:3000"//"https://models.inference.ai.azure.com";
 // const modelName = "gpt-4o";
 const endpointBackend = process.env.REACT_APP_BACKEND_URL;
+const clientID = process.env.REACT_APP_CLIENT_ID;
 
-const AssistantView = (title, description) => {
+const AssistantView = ({title, description}) => {
     const [input, setInput] = useState('');
     const [response, setResponse] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -70,6 +71,7 @@ const AssistantView = (title, description) => {
 
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            xhr.setRequestHeader('X-Client-ID', clientID);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {

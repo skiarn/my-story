@@ -17,3 +17,7 @@
     cursor: pointer;
     margin: 8px;
   }
+
+  .initial-message {
+    padding: 10px 20px;
+  }

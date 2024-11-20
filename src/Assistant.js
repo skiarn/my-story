@@ -71,7 +71,7 @@ const AssistantView = ({title, description}) => {
 
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-            xhr.setRequestHeader('X-Client-ID', clientID);
+            xhr.setRequestHeader('x-client-id', clientID);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {

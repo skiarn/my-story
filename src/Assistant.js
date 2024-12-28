@@ -102,7 +102,7 @@ const AssistantView = ({title, description}) => {
                     type="text"
                     value={input}
                     onChange={handleInputChange}
-                    placeholder="Message ChatGTP"
+                    placeholder="Message ChatGPT"
                     className="story-input"
                 />
                 <button disabled={isLoading} type="submit" className={`${isLoading ? 'disabled-button' : 'submit-button'}`}>Ask</button>

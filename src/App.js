@@ -6,6 +6,7 @@ import AssistantView from "./Assistant";
 import RequestView from "./RequestView";
 import ReadView from "./ReadView";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SingleChapter from "./SingleChapter";
 
 const basename = "/my-story";
 
@@ -58,6 +59,7 @@ function App() {
   const params = new URLSearchParams(window.location.search);
 
   const [chapters, setChapters] = useState([]);
+  // eslint-disable-next-line
   const [editIndex, setEditIndex] = useState(
     params.get("editIndex") !== null ? Number(params.get("editIndex")) : null
   );
@@ -75,6 +77,7 @@ function App() {
 
   useEffect(() => {
     console.log("on change index", editIndex);
+    console.log('chapters', chapters)
     const findChapterByIndex = (index) => {
       if (index >= 0 && index < chapters.length) {
         const chapter = chapters[index];
@@ -94,6 +97,7 @@ function App() {
     }
   }, [editIndex, chapters, setTitle, setDescription]);
 
+
   return (
     <div className="App">
       <header className="App-header">
@@ -104,8 +108,34 @@ function App() {
               path="/started"
               element={
                 <div className="started-container">
-                  <div className="chapter-list-view">
-                    <ChapterList
+                  <div className="single-chapter">
+                    <SingleChapter title={title}
+                      description={description}
+                      setTitle={(v)=> {
+                        //trigger rerender
+                        const params = new URLSearchParams(window.location.search);
+                        const encodedChapters = params.get("chapters");
+                        if (encodedChapters) {
+                          const dChapters = decodeChapters(encodedChapters);
+                          setChapters(dChapters);
+                        }
+                        setTitle(v)
+                      }}
+                      setDescription={(v)=> {
+                        //trigger rerender
+                        const params = new URLSearchParams(window.location.search);
+                        const encodedChapters = params.get("chapters");
+                        if (encodedChapters) {
+                          const dChapters = decodeChapters(encodedChapters);
+                          setChapters(dChapters);
+                        }
+                        setDescription(v)
+                      }}></SingleChapter>
+                      <div className="share-button-container"> <ShareButton chapters={chapters}></ShareButton> </div>
+                  </div>
+                  
+                  {/* <div className="chapter-list-view">
+                    {<ChapterList
                       chapters={chapters}
                       title={title}
                       description={description}
@@ -114,9 +144,9 @@ function App() {
                       setDescription={setDescription}
                       editIndex={editIndex}
                       setEditIndex={setEditIndex}
-                    />
+                    /> }
                     <div className="share-button-container"> <ShareButton chapters={chapters}></ShareButton> </div>
-                  </div>
+                  </div> */}
                   
                   <div className="assistant-view">
                     <AssistantView title={title} description={description} />

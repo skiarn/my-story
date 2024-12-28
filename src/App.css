@@ -21,7 +21,7 @@
   position: relative;
 }
 
-.chapter-list-view {
+.chapter-list-view, .single-chapter {
   flex: 7; /* 70% of the width */
   padding: 10px;
   overflow-y: auto;
